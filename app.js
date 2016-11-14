@@ -1,6 +1,6 @@
 var http = require('http');
 var fs = require('fs');
-
+var CarsCats = new RegExp('^/images/ca[r,t]s0[1,2,3,4,5].jpg$');
 
 function writeEnd(response){
     response.write(contents);
@@ -15,16 +15,16 @@ function loadPage(page, response, code){
     });
 }
 
-function serveCSS(page, response, code){
-    fs.readFile(page, 'utf8', function (errors, contents){
+function serveCSS(file, response, code){
+    fs.readFile(file, 'utf8', function (errors, contents){
         response.writeHead(code, {'Content-Type': 'text/css'});
         response.write(contents);
         response.end();
     });
 }
 
-function loadJpg(page, response, code){
-    fs.readFile(page, 'utf8', function (errors, contents){
+function loadJpg(image, response, code){
+    fs.readFile('.'+image, 'utf8', function (errors, contents){
         response.writeHead(code, {'Content-Type': 'image/jpg'});
         response.write(contents);
         response.end();
@@ -49,7 +49,7 @@ var server = http.createServer(function (request, response){
         case '/stylesheets/style.css':
             serveCSS('./stylesheets/style.css', response, 200);
             break;
-        case '/images/^cars0[1,2,3,4,5]$':
+        case CarsCats:
             loadJpg('./stylesheets/style.css', response, 200);
             break;
         default:

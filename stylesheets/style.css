@@ -1,0 +1,11 @@
+label, a{
+    display: block;
+}
+img{
+    margin: 3px;
+    width: 300px;
+    height: auto;
+}
+h3{
+    color : brown;
+}
